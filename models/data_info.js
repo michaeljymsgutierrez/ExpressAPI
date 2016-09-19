@@ -29,3 +29,10 @@ module.exports.getInfo = function(callback,limit){
 module.exports.getInfoById = function(id,callback){
     Info.findById(id,callback); 
 };
+
+
+
+//Add Single Data
+module.exports.addInfo = function(newInfo,callback){
+    Info.create(newInfo,callback); 
+};

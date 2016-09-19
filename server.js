@@ -3,6 +3,10 @@ var  app = express();
 var  bodyParser = require('body-parser');
 var  mongoose = require('mongoose');
 
+
+//Middleware
+app.use(bodyParser.json());
+
 //Require From models
 Info = require('./models/data_info');
 
@@ -30,6 +34,7 @@ app.get('/api', function (req, res) {
             }
             else{
                 //Respond JSON
+             
                 res.send(JSON.stringify(data));
             }
     });
@@ -40,7 +45,7 @@ app.get('/api', function (req, res) {
 
 //Get single Data from API
 app.get('/api/:_id',function(req,res){
-   Info.getInfoById(req.params,function(err,data){
+   Info.getInfoById(req.params._id,function(err,data){
        
             if(err){
                 //Handle Error
@@ -53,6 +58,26 @@ app.get('/api/:_id',function(req,res){
    }); 
 });
 
+
+
+
+//Add Data to API
+app.post('/api', function (req, res) {
+    
+    var newInfo = req.body;
+    Info.addInfo(newInfo,function(err,newInfo){
+           
+            if(err){
+                //Handle Error
+                throw err;
+            }
+            else{
+                //Respond JSON
+             
+                res.send(JSON.stringify(newInfo));
+            }
+    });
+}); 
 
 
 
