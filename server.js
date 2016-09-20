@@ -7,6 +7,7 @@ var  mongoose = require('mongoose');
 //Middleware
 app.use(bodyParser.json());
 
+
 //Require From models
 Info = require('./models/data_info');
 
@@ -38,6 +39,7 @@ app.get('/api', function (req, res) {
                 res.send(JSON.stringify(data));
             }
     });
+    
 }); 
 
 
@@ -78,6 +80,28 @@ app.post('/api', function (req, res) {
             }
     });
 }); 
+
+
+//Update Data to API
+app.put('/api/:_id',function(req,res){
+    var id = req.params._id;
+    var updateInfo = req.body;
+    Info.updateInfo(id,updateInfo,{},function(err,updateInfo){
+        if(err){
+            
+            throw err;
+        }
+        else{
+            
+            res.json(updateInfo);
+        }
+        
+    });
+   
+   
+   
+    
+});
 
 
 

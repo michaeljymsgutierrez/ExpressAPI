@@ -19,20 +19,34 @@ var infoSchema = mongoose.Schema({
 var Info = module.exports = mongoose.model('Info',infoSchema);
     
 //Get All Data
-module.exports.getInfo = function(callback,limit){
-    Info.find(callback).limit(limit); 
+module.exports.getInfo = function(callback){
+    Info.find(callback); 
 };
+  
 
 
-
-//Get Single Data
+//Get Data
 module.exports.getInfoById = function(id,callback){
     Info.findById(id,callback); 
 };
 
+                
 
-
-//Add Single Data
+//Add Data
 module.exports.addInfo = function(newInfo,callback){
     Info.create(newInfo,callback); 
+};
+
+
+
+
+//Update Data
+module.exports.updateInfo = function(id,updateInfo,callback,options){
+    var query = {_id: id };
+    var update = {
+       name: updateInfo.name,
+       gender: updateInfo.gender
+    };
+    
+    Info.findOneAndUpdate(query,update,callback,options); 
 };
